@@ -25,5 +25,6 @@ class GamesController < ApplicationController
     c.save!
     game.comments << c
     game.save!
+    render nothing:true
   end
 end
