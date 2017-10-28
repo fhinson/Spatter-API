@@ -19,6 +19,7 @@ class GamesController < ApplicationController
 
   def add_game_comment
     game = Game.find(params[:game_id])
+    text = params[:comment_text]
     c = Comment.new
     c.comment = text
     c.user_id = params[:user_id]
