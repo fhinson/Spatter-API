@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   root 'games#index'
+  get '/get_user', to: 'users#get_user'
   get '/todays_games', to: 'games#get_todays_games'
   get '/get_game_comments', to: 'games#get_game_comments'
   post '/add_game_comment', to: 'games#add_game_comment'

@@ -28,34 +28,42 @@ class GamesController < ApplicationController
     c.save!
     game.comments << c
     game.save!
-    render nothing:true
+    render json:c.id
   end
 
   def upvote_comment
-    comment = Comment.where(comment: params[:comment]).where(user_id: params[:user_id]).where(commentable_id: params[:game_id]).first
-    comment.upvotes = comment.upvotes.to_i + 1
+    comment = Comment.find(params[:comment_id])
+    comment.upvotes = comment.upvotes + 1
     comment.save!
+    user = User.find(params[:user_id])
+    user.add_upvoted_comment(comment)
     render nothing:true
   end
 
   def downvote_comment
-    comment = Comment.where(comment: params[:comment]).where(user_id: params[:user_id]).where(commentable_id: params[:game_id]).first
-    comment.downvotes = comment.downvotes.to_i + 1
+    comment = Comment.find(params[:comment_id])
+    comment.downvotes = comment.downvotes + 1
     comment.save!
+    user = User.find(params[:user_id])
+    user.add_downvoted_comment(comment)
     render nothing:true
   end
 
   def un_upvote_comment
-    comment = Comment.where(comment: params[:comment]).where(user_id: params[:user_id]).where(commentable_id: params[:game_id]).first
-    comment.upvotes = comment.upvotes.to_i - 1
+    comment = Comment.find(params[:comment_id])
+    comment.upvotes = comment.upvotes - 1
     comment.save!
+    user = User.find(params[:user_id])
+    user.remove_upvoted_comment(comment)
     render nothing:true
   end
 
   def un_downvote_comment
-    comment = Comment.where(comment: params[:comment]).where(user_id: params[:user_id]).where(commentable_id: params[:game_id]).first
-    comment.downvotes = comment.downvotes.to_i - 1
+    comment = Comment.find(params[:comment_id])
+    comment.downvotes = comment.downvotes - 1
     comment.save!
+    user = User.find(params[:user_id])
+    user.remove_downvoted_comment(comment)
     render nothing:true
   end
 end
