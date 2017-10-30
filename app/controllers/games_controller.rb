@@ -30,4 +30,18 @@ class GamesController < ApplicationController
     game.save!
     render nothing:true
   end
+
+  def upvote_comment
+    comment = Comment.where(comment: params[:comment]).where(user_id: params[:user_id]).where(commentable_id: params[:game_id]).first
+    comment.upvotes = comment.upvotes.to_i + 1
+    comment.save!
+    render nothing:true
+  end
+
+  def downvote_comment
+    comment = Comment.where(comment: params[:comment]).where(user_id: params[:user_id]).where(commentable_id: params[:game_id]).first
+    comment.downvotes = comment.downvotes.to_i + 1
+    comment.save!
+    render nothing:true
+  end
 end
