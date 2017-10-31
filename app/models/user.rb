@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
   def add_downvoted_comment(comment)
     if self.downvoted_comments.nil?
       self.downvoted_comments = [comment.id]
+      self.save!
     else
       self.downvoted_comments.push(comment.id)
       self.save!
