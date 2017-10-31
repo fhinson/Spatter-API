@@ -10,7 +10,7 @@ namespace :schedule do
         g.team2_name = object["v"]["tn"]
         g.team1_city = object["h"]["tc"]
         g.team2_city = object["v"]["tc"]
-        g.date = object["htm"]
+        g.date = object["etm"]
         g.game_city = object["ac"]
         g.game_state = object["as"]
         g.game_arena = object["an"]
