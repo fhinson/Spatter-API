@@ -1,0 +1,5 @@
+class AddFlaggedCommentsToUsers < ActiveRecord::Migration
+  def change
+    add_column :users, :flagged_comments, :text
+  end
+end

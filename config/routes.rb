@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   post '/downvote_comment', to: 'games#downvote_comment'
   post '/un_upvote_comment', to: 'games#un_upvote_comment'
   post '/un_downvote_comment', to: 'games#un_downvote_comment'
+  post '/flag_comment', to: 'games#flag_comment'
 end

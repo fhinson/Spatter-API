@@ -66,4 +66,13 @@ class GamesController < ApplicationController
     user.remove_downvoted_comment(comment)
     render nothing:true
   end
+
+  def flag_comment
+    comment = Comment.find(params[:comment_id])
+    comment.flags = comment.flags + 1
+    comment.save!
+    user = User.find(params[:user_id])
+    user.add_flagged_comment(comment)
+    render nothing:true
+  end
 end

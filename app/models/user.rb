@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_many :comments
   serialize :upvoted_comments
   serialize :downvoted_comments
+  serialize :flagged_comments
 
   def add_upvoted_comment(comment)
     if self.upvoted_comments.nil?
@@ -42,6 +43,16 @@ class User < ActiveRecord::Base
       return
     else
       self.downvoted_comments.delete(comment.id)
+      self.save!
+    end
+  end
+
+  def add_flagged_comment(comment)
+    if self.flagged_comments.nil?
+      self.flagged_comments = [comment.id]
+      self.save!
+    else
+      self.flagged_comments.push(comment.id)
       self.save!
     end
   end
