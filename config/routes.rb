@@ -1,5 +1,18 @@
 Rails.application.routes.draw do
-  devise_for :users
+  resources :comments
+
+  resources :games
+
+  post '/users', to: 'users#create'
+  resources :users, only: [:show]
+
+  devise_for :users, controllers: { sessions: 'sessions' }
+
+  devise_scope :user do
+    get 'login', to: 'devise/sessions#new'
+    get 'signup', to: 'registrations#new'
+  end
+
   root 'games#index'
   get '/get_user', to: 'users#get_user'
   get '/todays_games', to: 'games#get_todays_games'

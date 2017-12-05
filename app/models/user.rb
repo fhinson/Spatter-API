@@ -9,6 +9,20 @@ class User < ActiveRecord::Base
   serialize :downvoted_comments
   serialize :flagged_comments
 
+  def create_or_fetch_mobile_token
+    if !(token = read_attribute(:mobile_token))
+
+      while self.class.exists?(mobile_token: token = SecureRandom.hex); end
+      self.update_column(:mobile_token, token)
+    end
+
+    return token
+  end
+
+  def valid_mobile_token?(key)
+    return (k = read_attribute(:mobile_token)) && key == k
+  end
+
   def add_upvoted_comment(comment)
     if self.upvoted_comments.nil?
       self.upvoted_comments = [comment.id]

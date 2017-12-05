@@ -75,4 +75,38 @@ class GamesController < ApplicationController
     user.add_flagged_comment(comment)
     render nothing:true
   end
+
+  def create
+    @game = Game.new()
+
+    respond_to do |format|
+      if @game.save
+        format.html { redirect_to @game, notice: 'game was successfully created.' }
+        format.json { render :show, status: :created, location: @game }
+      else
+        format.html { render :new }
+        format.json { render json: @game.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def destroy
+    @game.destroy
+    respond_to do |format|
+      format.html { redirect_to comments_url, notice: 'Game was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
+  def update
+    respond_to do |format|
+      if @game.update()
+        format.html { redirect_to @game, notice: 'game was successfully updated.' }
+        format.json { render :show, status: :ok, location: @game }
+      else
+        format.html { render :edit }
+        format.json { render json: @game.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 end

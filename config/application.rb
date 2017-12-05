@@ -8,6 +8,7 @@ Bundler.require(*Rails.groups)
 
 module SpatterApi
   class Application < Rails::Application
+    config.web_console.development_only = false
 
     config.time_zone = 'Eastern Time (US & Canada)'
     # Settings in config/environments/* take precedence over those specified here.
