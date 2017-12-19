@@ -44,6 +44,8 @@ group :development, :test do
   gem 'railroady'
   gem 'sqlite3'
   gem 'powder'
+  gem 'brakeman'
+  gem 'simplecov', :require => false
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
